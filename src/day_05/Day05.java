@@ -1,4 +1,4 @@
-package day_02;
+package day_05;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Day02 {
+public class Day05 {
 
     private static final Pattern MOVEMENT_COMMAND = Pattern.compile("move (\\d+) from (\\d+) to (\\d+)");
     
