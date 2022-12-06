@@ -91,11 +91,6 @@ public class Day05 {
             int dest = Integer.parseInt(matcher.group(3)) - 1;
             
             for (int i = 0; i < itemCount; i++) {
-//                if (!grouped) {
-//                    stackList.get(dest).push(stackList.get(origin).pop());
-//                } else {
-//                    stackList.get(dest).add(i, stackList.get(origin).pop());
-//                }
                 stackList.get(dest).add(grouped ? i : 0, stackList.get(origin).pop());
             }
         }
