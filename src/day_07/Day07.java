@@ -50,15 +50,15 @@ public class Day07 {
                 // Directory listing - parse and build elements after this
                 continue;
             } else {
+                String[] parts = line.split("\\s+");
+                
                 // Directory item
-                if (line.startsWith("dir ")) {
+                if (parts[0].equals("dir")) {
                     // Child directory
-                    String name = line.substring(line.lastIndexOf(' ') + 1);
-                    Folder<File> folder = new Folder<>(name, currentFolder);
+                    Folder<File> folder = new Folder<>(parts[1], currentFolder);
                     currentFolder.addChildNode(folder);
                 } else {
                     // File
-                    String[] parts = line.split("\\s+");
                     File file = new File(parts[1], Long.valueOf(parts[0]));
                     currentFolder.addDataItem(file);
                 }
