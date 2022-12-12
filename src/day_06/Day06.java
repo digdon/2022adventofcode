@@ -14,7 +14,6 @@ public class Day06 {
         List<String> inputLines = reader.lines().collect(Collectors.toList());
         reader.close();
         
-        // Part 1
         for (String line : inputLines) {
             int markerPos = 0;
             
@@ -37,8 +36,9 @@ public class Day06 {
                     break;
                 }
             }
-            
-            System.out.println(String.format("marker: %d, message: %d", markerPos, messagePos));
+
+            System.out.println("Part 1: start of packet marker = " + markerPos);
+            System.out.println("Part 2: start of message marker = " + messagePos);
         }
     }
 }
