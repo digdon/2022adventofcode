@@ -36,11 +36,9 @@ public class Day13 {
             if (compare(packet1, packet2) < 1) {
                 part1Sum += pairCount;
             }
-
-            System.out.println();
         }
         
-        System.out.println(part1Sum);
+        System.out.println("Part 1: " + part1Sum);
 
         List<Item> divider1 = parsePacket("[[2]]");
         List<Item> divider2 = parsePacket("[[6]]");
@@ -53,7 +51,6 @@ public class Day13 {
         
         for (int i = 0; i < packetList.size(); i++) {
             List<Item> packet = packetList.get(i);
-            System.out.println(generatePacketString(packet));
             
             if (packet.equals(divider1) || packet.equals(divider2)) {
                 part2Key *= (i + 1);
@@ -64,16 +61,8 @@ public class Day13 {
     }
 
     private static int compare(List<Item> listA, List<Item> listB) {
-        return compare(listA, listB, "");
-    }
-    
-    private static int compare(List<Item> listA, List<Item> listB, String spacer) {
-        System.out.println(String.format("%s- Compare %s vs %s", spacer, generatePacketString(listA), generatePacketString(listB)));
-        spacer = "  " + spacer;
-
         for (int i = 0; i < listA.size(); i++) {
             if (i > listB.size() - 1) {
-                System.out.println(spacer + "- right side ran out of items, so inputs ARE NOT in the right order");
                 return 1;
             }
             
@@ -82,20 +71,16 @@ public class Day13 {
             
             if (item1.getSubList() != null && item2.getSubList() != null) {
                 // Both items are sub-lists, so grab those lists and compare
-                int value = compare(item1.getSubList(), item2.getSubList(), spacer);
+                int value = compare(item1.getSubList(), item2.getSubList());
 
                 if (value != 0) {
                     return value;
                 }
             } else if (item1.getSubList() == null && item2.getSubList() == null) {
                 // Both items are integer values, so compare directly
-                System.out.println(String.format("%s- Compare %d vs %d", spacer, item1.getValue(), item2.getValue()));
-                
                 if (item1.getValue() < item2.getValue()) {
-                    System.out.println(spacer + "  - Left side is smaller, so inputs ARE in the right order");
                     return -1;
                 } else if (item1.getValue() > item2.getValue()) {
-                    System.out.println(spacer + "  - Right side is smaller, so inputs ARE NOT in the right order");
                     return 1;
                 }
             } else {
@@ -104,25 +89,17 @@ public class Day13 {
                 List<Item> tempList2 = null;
                 
                 if (item1.getSubList() == null) {
-                    System.out.println(String.format("%s- Compare %d vs %s",
-                                                     spacer,
-                                                     item1.getValue(),
-                                                     generatePacketString(item2.getSubList())));
                     // Item 1 needs to be converted into a list
                     tempList1 = Arrays.asList(item1);
                     tempList2 = item2.getSubList();
                 } else {
-                    System.out.println(String.format("%s- Compare %s vs %d",
-                                                     spacer,
-                                                     generatePacketString(item1.getSubList()),
-                                                     item2.getValue()));
                     // Item 2 needs to be converted into a list
                     tempList2 = Arrays.asList(item2);
                     tempList1 = item1.getSubList();
                 }
                 
                 // Both items are now sub-lists, so compare those lists
-                int value = compare(tempList1, tempList2, spacer + "  ");
+                int value = compare(tempList1, tempList2);
 
                 if (value != 0) {
                     return value;
@@ -131,7 +108,6 @@ public class Day13 {
         }
 
         if (listA.size() < listB.size()) {
-            System.out.println(spacer + "- left side ran out of items, so inputs ARE in the right order");
             return -1;
         }
         
