@@ -49,7 +49,6 @@ public class Day23 {
             Map<Point, List<Point>> moveProposals = new HashMap<>();
             
             for (Point elf : elfLocations) {
-//                System.out.println("Elf " + elf);
                 String proposedDir = null;
                 boolean noNeighbours = true;
                 
@@ -62,7 +61,6 @@ public class Day23 {
                         int nearY = elf.y() + directions[1];
                         Point tempPoint = new Point(nearX, nearY);
                         boolean found = elfLocations.contains(tempPoint);
-//                        System.out.println("    checking " + dir + ": " + found);
                         
                         if (found) {
                             foundInDirection = true;
@@ -72,6 +70,9 @@ public class Day23 {
                     }
                     
                     if (foundInDirection == false && proposedDir == null) {
+                        // No neighbours in the direction we checked, so it's a possible move.
+                        // However, while it's possible to move in multiple directions, we only record the first one that's possible.
+                        // We need to do it this way because we have to check all directions, to see if the elf has zero neighbours.
                         proposedDir = consider;
                     }
                 }
@@ -80,7 +81,9 @@ public class Day23 {
                 Point newLocation = null;
                 
                 if (proposedDir == null || noNeighbours) {
-                    // Elf is not moving
+                    // Elf is not moving because it has neighbours in all 4 major areas (N, E, S, W) or it has no neighbours at all,
+                    // so new location is essentially the old location (we're doing it this way so that the HashSet contents are
+                    // set/updated correctly)
                     newLocation = elf;
                 } else {
                     int[] directions = DIRECTION_MAP.get(proposedDir);
@@ -95,11 +98,8 @@ public class Day23 {
                 }
 
                 elfList.add(elf);
-//                System.out.println("    proposed move: " + proposedDir + "(" + newLocation + ")");
             }
     
-//            System.out.println(moveProposals);
-            
             // Part 2 stuff
             boolean same = true;
             
