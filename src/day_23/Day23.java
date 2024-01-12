@@ -159,6 +159,7 @@ public class Day23 {
         }
     }
     
+    @SuppressWarnings("unused")
     private static void displayGrid(Set<Point> elfLocations) {
         // First we work out the grid size
         int minY = Integer.MAX_VALUE, maxY= 0;
@@ -170,7 +171,8 @@ public class Day23 {
             minX = Math.min(elf.x(), minX);
             maxX = Math.max(elf.x(), maxX);
         }
-        
+
+        // Now we build the grid
         char[][] grid = new char[maxY - minY + 1][maxX - minX + 1];
         
         for (int y = 0; y < grid.length; y++) {
@@ -178,13 +180,15 @@ public class Day23 {
                 grid[y][x] = '.';
             }
         }
-        
+
+        // Fill in the elf locations
         for (Point elf : elfLocations) {
             int x = elf.x() - minX;
             int y = elf.y() - minY;
             grid[y][x] = '#';
         }
-        
+
+        // Print it out
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[y].length; x++) {
                 System.out.print(grid[y][x]);
