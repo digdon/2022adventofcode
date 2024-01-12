@@ -114,6 +114,7 @@ public class Day13 {
         return 0;
     }
     
+    @SuppressWarnings("unused")
     private static String generatePacketString(List<Item> packet) {
         StringBuilder sb = new StringBuilder();
         sb.append('[');
